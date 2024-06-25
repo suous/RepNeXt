@@ -1,5 +1,3 @@
-> checkpoint will be released soon!
-
 # [RepNeXt: A Fast Multi-Scale CNN using Structural Reparameterization](https://arxiv.org/abs/2406.16004)
 
 <p align="center">

@@ -50,7 +50,7 @@ For example, to test RepNeXt-M3 on COCO 2017 on an 8-GPU machine,
 ## Training
 Download ImageNet-1K pretrained weights into `./pretrain` 
 
-We provide PyTorch distributed data parallel (DDP) training script `dist_train.sh`, for example, to train RepNeXt-M1.1 on an 8-GPU machine: 
+We provide PyTorch distributed data parallel (DDP) training script `dist_train.sh`, for example, to train RepNeXt-M3 on an 8-GPU machine: 
 ```
 ./dist_train.sh configs/mask_rcnn_renext_m3_fpn_1x_coco.py 8
 ```
