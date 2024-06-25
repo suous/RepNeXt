@@ -1,0 +1,14 @@
+wandb
+coreml
+pretrain
+**/__pycache__
+pretrain
+ignore
+*.zip
+checkpoints
+trt
+.DS_Store
+.ruff_cache
+.ipynb_checkpoints
+.idea
+.vscode
