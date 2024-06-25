@@ -5,7 +5,7 @@ Detection and instance segmentation on MS COCO 2017 is implemented based on [MMD
 ## Models
 | Model      | $AP^b$ | $AP_{50}^b$ | $AP_{75}^b$ | $AP^m$ | $AP_{50}^m$ | $AP_{75}^m$ | Latency |                                       Ckpt                                        |                Log                |
 |:-----------|:------:|:---:|:--:|:--:|:--:|:--:|:-------:|:---------------------------------------------------------------------------------:|:---------------------------------:|
-| RepNeXt-M3 |  40.7  | 62.3   | 44.7  | 37.8   | 59.5  | 40.6 |  5.1ms  | [M3](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m3_coco.pth) | [M3](./logs/repnext_m3_coco.json) |
+| RepNeXt-M3 |  40.8  | 62.4   | 44.7  | 37.8   | 59.5  | 40.6 |  5.1ms  | [M3](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m3_coco.pth) | [M3](./logs/repnext_m3_coco.json) |
 | RepNeXt-M4 |  42.9  | 64.4   | 47.2  |  39.1  | 61.7  | 41.7 |  6.6ms  | [M4](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m4_coco.pth) | [M4](./logs/repnext_m4_coco.json) |
 | RepNeXt-M5 |  44.7  | 66.0   | 49.2  | 40.7   | 63.5  | 43.6 | 10.4ms  | [M5](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m5_coco.pth) | [M5](./logs/repnext_m5_coco.json) |
 
