@@ -56,3 +56,27 @@ We provide PyTorch distributed data parallel (DDP) training script `dist_train.s
 ```
 Tips: specify configs and #GPUs!
 
+## Hacking issues incompatible with torch>=2.0
+
+1. `AttributeError: 'MMDistributedDataParallel' object has no attribute '_use_replicated_tensor_module'`
+
+[Solution](https://github.com/microsoft/Cream/issues/179#issuecomment-1892997366): edit `/home/someone/micromamba/envs/detection/lib/python3.8/site-packages/mmcv/parallel/distributed.py` line **160** in `_run_ddp_forward` function.
+
+```python
+# comment below two lines
+# module_to_run = self._replicated_tensor_module if \
+#     self._use_replicated_tensor_module else self.module
+# replace with below line
+module_to_run = self.module
+```
+
+2. `AttributeError: 'int' object has no attribute 'type'`
+
+[Solution](https://github.com/open-mmlab/mmdetection/issues/10720#issuecomment-1727317155): edit `/home/someone/micromamba/envs/detection/lib/python3.8/site-packages/mmcv/parallel/_functions.py` line **75** in `forward` function.
+
+```python
+# comment below line
+# streams = [_get_stream(device) for device in target_gpus]
+# replace with below line
+streams = [_get_stream(torch.device("cuda", device)) for device in target_gpus]
+```
