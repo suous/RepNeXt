@@ -110,10 +110,28 @@ pip install -r requirements.txt
 ### Data preparation
 
 Download and extract ImageNet train and val images from http://image-net.org/. The training and validation data are expected to be in the `train` folder and `val` folder respectively:
+
+```bash
+# script to extract ImageNet dataset: https://github.com/pytorch/examples/blob/main/imagenet/extract_ILSVRC.sh
+# ILSVRC2012_img_train.tar (about 138 GB)
+# ILSVRC2012_img_val.tar (about 6.3 GB)
 ```
-|-- /path/to/imagenet/
-    |-- train
-    |-- val
+
+```
+# organize the ImageNet dataset as follows:
+imagenet
+├── train
+│   ├── n01440764
+│   │   ├── n01440764_10026.JPEG
+│   │   ├── n01440764_10027.JPEG
+│   │   ├── ......
+│   ├── ......
+├── val
+│   ├── n01440764
+│   │   ├── ILSVRC2012_val_00000293.JPEG
+│   │   ├── ILSVRC2012_val_00002138.JPEG
+│   │   ├── ......
+│   ├── ......
 ```
 
 ### Training
