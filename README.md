@@ -165,6 +165,35 @@ python main.py --eval --model repnext_m1 --resume pretrain/repnext_m1_distill_30
 | RepNeXt-M4 |   43.3   |  6.6ms  | [M4](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m4_ade20k.pth) | [M4](./segmentation/logs/repnext_m4_ade20k.json) |
 | RepNeXt-M5 |   45.0   | 10.4ms  | [M5](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m5_ade20k.pth) | [M5](./segmentation/logs/repnext_m5_ade20k.json) |
 
+## Feature Map Visualization
+Run feature map visualization demo using [Colab notebook](https://colab.research.google.com/github/suous/RepNeXt/blob/main/demo/feature_map_visualization.ipynb):
+
+<table border=0 align=center>
+	<tbody>
+    <tr>
+			<td align="center"> Original Image </td>
+			<td align="center"> Identity </td>
+			<td align="center"> RepDWConvS </td>
+			<td align="center"> RepDWConvM </td>
+			<td align="center"> DWConvL </td>
+		</tr>
+		<tr>
+			<td width="20%"> <img src="https://raw.githubusercontent.com/shicai/MobileNet-Caffe/master/cat.jpg"> </td>
+			<td width="20%"> <img src="./demo/figures/cat-stage0-block1-conv_i.png"> </td>
+            <td width="20%"> <img src="./demo/figures/cat-stage0-block1-conv_s.png"> </td>
+            <td width="20%"> <img src="./demo/figures/cat-stage0-block1-conv_m.png"> </td>
+            <td width="20%"> <img src="./demo/figures/cat-stage0-block1-conv_l.png"> </td>
+		</tr>
+		<tr>
+			<td width="20%"> <img src="https://raw.githubusercontent.com/pytorch/vision/main/gallery/assets/dog2.jpg"> </td>
+			<td width="20%"> <img src="./demo/figures/dog2-stage0-block1-conv_i.png"> </td>
+            <td width="20%"> <img src="./demo/figures/dog2-stage0-block1-conv_s.png"> </td>
+            <td width="20%"> <img src="./demo/figures/dog2-stage0-block1-conv_m.png"> </td>
+            <td width="20%"> <img src="./demo/figures/dog2-stage0-block1-conv_l.png"> </td>
+		</tr>
+	</tbody>
+</table>
+
 ## Acknowledgement
 
 Classification (ImageNet) code base is partly built with [LeViT](https://github.com/facebookresearch/LeViT), [PoolFormer](https://github.com/sail-sg/poolformer), [EfficientFormer](https://github.com/snap-research/EfficientFormer),  and [RepViT](https://github.com/THU-MIG/RepViT)
