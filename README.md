@@ -1,5 +1,9 @@
 # [RepNeXt: A Fast Multi-Scale CNN using Structural Reparameterization](https://arxiv.org/abs/2406.16004)
 
+[![license](https://img.shields.io/github/license/suous/RepNeXt)](https://github.com/suous/RepNeXt/blob/main/LICENSE)
+[![arXiv](https://img.shields.io/badge/arXiv-2406.16004-red)](https://arxiv.org/abs/2406.16004)
+[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/suous/RepNeXt/blob/main/demo/feature_map_visualization.ipynb)
+
 <p align="center">
   <img src="figures/latency.png" width=70%> <br>
   The top-1 accuracy is tested on ImageNet-1K and the latency is measured by an iPhone 12 with iOS 16 across 20 experimental sets.
@@ -8,7 +12,6 @@
 [RepNeXt: A Fast Multi-Scale CNN using Structural Reparameterization](https://arxiv.org/abs/2406.16004).\
 Mingshu Zhao, Yi Luo, and Yong Ouyang
 [[`arXiv`](https://arxiv.org/abs/2406.16004)]
-
 
 ![architecture](./figures/architecture.png)
 
@@ -22,9 +25,6 @@ Mingshu Zhao, Yi Luo, and Yong Ouyang
 </details>
 
 <br/>
-
-
-
 
 ## Classification on ImageNet-1K
 
@@ -51,7 +51,6 @@ utils.replace_batchnorm(model)
 ## Latency Measurement 
 
 The latency reported in RepNeXt for iPhone 12 (iOS 16) uses the benchmark tool from [XCode 14](https://developer.apple.com/videos/play/wwdc2022/10027/).
-
 
 <details>
 <summary>
@@ -96,7 +95,6 @@ Tips: measure the throughput on GPU
 ```
 python speed_gpu.py --model repnext_m1
 ```
-
 
 ## ImageNet  
 
@@ -166,7 +164,7 @@ python main.py --eval --model repnext_m1 --resume pretrain/repnext_m1_distill_30
 | RepNeXt-M5 |   45.0   | 10.4ms  | [M5](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m5_ade20k.pth) | [M5](./segmentation/logs/repnext_m5_ade20k.json) |
 
 ## Feature Map Visualization
-Run feature map visualization demo using [Colab notebook](https://colab.research.google.com/github/suous/RepNeXt/blob/main/demo/feature_map_visualization.ipynb):
+Run feature map visualization demo: [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/suous/RepNeXt/blob/main/demo/feature_map_visualization.ipynb)
 
 <table border=0 align=center>
 	<tbody>
