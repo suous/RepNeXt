@@ -28,7 +28,7 @@ import utils
 
 def get_args_parser():
     parser = argparse.ArgumentParser(
-        'RepViT training and evaluation script', add_help=False)
+        'RepNeXt training and evaluation script', add_help=False)
     parser.add_argument('--batch-size', default=256, type=int)
     parser.add_argument('--epochs', default=300, type=int)
 
@@ -473,7 +473,7 @@ def export_onnx(model, output_dir):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        'RepViT training and evaluation script', parents=[get_args_parser()])
+        'RepNeXt training and evaluation script', parents=[get_args_parser()])
     args = parser.parse_args()
     if args.resume and not args.eval:
         args.output_dir = '/'.join(args.resume.split('/')[:-1])
