@@ -147,7 +147,7 @@ python main.py --eval --model repnext_m1 --resume pretrain/repnext_m1_distill_30
 ```
 
 ### Fused model evaluation
-For example, to evaluate RepNeXt-M1 with the fused model:
+For example, to evaluate RepNeXt-M1 with the fused model: [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/suous/RepNeXt/blob/main/demo/fused_model_evaluation.ipynb)
 ```
 python fuse_eval.py --model repnext_m1 --resume pretrain/repnext_m1_distill_300e_fused.pt --data-path ~/imagenet
 ```
