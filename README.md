@@ -303,10 +303,10 @@ The downsampling layer between each stage is a modified version of the MetaNeXt 
   When replace downsampling layers of ConvNeXt-femto with our designs, the top-1 accuracy is improved by 1.9%.
   </summary>
 
-|                          Model                           | Top-1(%) | Params(M) | GMACs | Throughput(im/s) |                          Log                          |
-|:--------------------------------------------------------:|:--------:|:---------:|:-----:|:----------------:|:-----------------------------------------------------:|
-| [ConvNeXt](https://github.com/facebookresearch/ConvNeXt) |  72.37   |   5.22    | 0.78  |       3636       | [femto](./logs/ablation/convnext_femto_120e_7237.txt) |
-|                         Modified                         |  74.28   |   5.25    | 0.79  |       3544       | [femto](./logs/ablation/convnext_femto_120e_7428.txt) |
+|                          Model                           | Top-1(%) | Params(M) | GMACs | Throughput(im/s) |                          Log                          |                                                 Ckpt                                                 |
+|:--------------------------------------------------------:|:--------:|:---------:|:-----:|:----------------:|:-----------------------------------------------------:|:----------------------------------------------------------------------------------------------------:|
+| [ConvNeXt](https://github.com/facebookresearch/ConvNeXt) |  72.37   |   5.22    | 0.78  |       3636       | [femto](./logs/ablation/convnext_femto_120e_7237.txt) | [baseline](https://github.com/suous/RepNeXt/releases/download/v1.0/convnext_femto_120e_baseline.pth) |
+|                         Modified                         |  74.28   |   5.25    | 0.79  |       3544       | [femto](./logs/ablation/convnext_femto_120e_7428.txt) | [replaced](https://github.com/suous/RepNeXt/releases/download/v1.0/convnext_femto_120e_replaced.pth) |
 
 ![top1_acc](./figures/ablation_convnext.png)
 
