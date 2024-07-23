@@ -327,7 +327,7 @@ class Downsample(nn.Module):
 
     def forward(self, x):
         x = self.dwconv(x)        # token mixer: (N, C, H, W) -> (N, 2C, H/2, W/2)
-        input = x                 # bypass the channel mixer
+        input = x                 # bypass the channel mixer and the normalization layer
         x = x.permute(0, 2, 3, 1) # (N, C, H, W) -> (N, H, W, C)
         x = self.norm(x)
         x = self.pwconv1(x)
@@ -336,6 +336,35 @@ class Downsample(nn.Module):
         x = x.permute(0, 3, 1, 2) # (N, H, W, C) -> (N, C, H, W)
         return input + x
 ```
+
+> We made a mistake about the above convnext modification. 
+> We will correct it in the next version.
+> Actually, the code below is our downsample layer design, where the shortcut connection only bypasses the channel mixer. 
+> This design enables the batch normalization layer to be fused into the previous convolution layer.
+
+```python
+class Downsample(nn.Module):
+    def __init__(self, dim, mlp_ratio=2):
+        super().__init__()
+        out_dim = dim * 2
+        self.dwconv = nn.Conv2d(dim, out_dim, kernel_size=7, padding=3, groups=dim, stride=2)
+        self.norm = LayerNorm(out_dim, eps=1e-6, data_format="channels_first")
+        self.pwconv1 = nn.Linear(out_dim, mlp_ratio * out_dim)
+        self.act = nn.GELU()
+        self.pwconv2 = nn.Linear(mlp_ratio * out_dim, out_dim)
+
+    def forward(self, x):
+        x = self.dwconv(x)        # token mixer: (N, C, H, W) -> (N, 2C, H/2, W/2)
+        x = self.norm(x)          # normalization layer
+        input = x                 # bypass the channel mixer
+        x = x.permute(0, 2, 3, 1) # (N, C, H, W) -> (N, H, W, C)
+        x = self.pwconv1(x)
+        x = self.act(x)
+        x = self.pwconv2(x)
+        x = x.permute(0, 3, 1, 2) # (N, H, W, C) -> (N, C, H, W)
+        return input + x
+```
+
 </details>
 
 
