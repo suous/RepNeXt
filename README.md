@@ -21,7 +21,7 @@ We introduce RepNeXt, a novel model series integrates multi-scale feature repres
 Extensive experiments demonstrate RepNeXt's superiority over current leading lightweight CNNs and ViTs, providing advantageous latency across various vision benchmarks.
 RepNeXt-M4 matches RepViT-M1.5's 82.3% accuracy on ImageNet within 1.5ms on an iPhone 12, outperforms its AP$^{box}$ by 1.3 on MS-COCO, and reduces parameters by 0.7M.
 
-![architecture](./figures/transforms.png)
+![transforms](./figures/transforms.png)
 
 <details>
   <summary>
@@ -116,6 +116,10 @@ class CopyConv(nn.Module):
             conv.bias.data.copy_(torch.stack((conv_s_b, conv_l_b), dim=1).reshape(conv.bias.shape))
         return conv
 ```
+
+In summary, by focusing solely on the simplicity of the model’s overall architecture and disregarding its efficiency and parameter count, we can ultimately consolidate it into the single-branch structure shown in the figure below:
+
+![equivalent](./figures/equivalent.png)
 </details>
 
 <br/>
