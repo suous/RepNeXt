@@ -362,6 +362,10 @@ def _create_repnext(variant, pretrained=False, **kwargs):
     )
     return model
 
+@register_model
+def repnext_m0(pretrained=False, **kwargs):
+    model_args = dict(embed_dim=(40, 80, 160, 320), depth=(2, 2, 9, 1))
+    return _create_repnext("repnext_m0", pretrained=pretrained, **dict(model_args, **kwargs))
 
 @register_model
 def repnext_m1(pretrained=False, **kwargs):

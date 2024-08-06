@@ -304,17 +304,19 @@ The downsampling layer between each stage is a modified version of the MetaNeXt 
 
 <details>
   <summary>
-  When replace downsampling layers of ConvNeXt-femto with our designs, the top-1 accuracy is improved by 1.9%.
+  When replace downsampling layers of ConvNeXt-femto with our designs, the top-1 accuracy is improved by 1.8%.
   </summary>
 
 |                          Model                           | Top-1(%) | Params(M) | GMACs | Throughput(im/s) |                          Log                          |                                                 Ckpt                                                 |
 |:--------------------------------------------------------:|:--------:|:---------:|:-----:|:----------------:|:-----------------------------------------------------:|:----------------------------------------------------------------------------------------------------:|
-| [ConvNeXt](https://github.com/facebookresearch/ConvNeXt) |  72.37   |   5.22    | 0.78  |       3636       | [femto](./logs/ablation/convnext_femto_120e_7237.txt) | [baseline](https://github.com/suous/RepNeXt/releases/download/v1.0/convnext_femto_120e_baseline.pth) |
-|                         Modified                         |  74.28   |   5.25    | 0.79  |       3544       | [femto](./logs/ablation/convnext_femto_120e_7428.txt) | [replaced](https://github.com/suous/RepNeXt/releases/download/v1.0/convnext_femto_120e_replaced.pth) |
+| [ConvNeXt](https://github.com/facebookresearch/ConvNeXt) |  72.37   |   5.22    | 0.78  |       3636       | [femto](./logs/ablation/convnext_femto_120e_7237.txt) | [baseline](https://github.com/suous/RepNeXt/releases/download/v1.0/convnext_femto_120e_baseline_7237.pth) |
+|                         ModifiedA                        |  74.28   |   5.25    | 0.79  |       3544       | [femto](./logs/ablation/convnext_femto_120e_7428.txt) | [replaced](https://github.com/suous/RepNeXt/releases/download/v1.0/convnext_femto_120e_replaced_7428.pth) |
+|                         ModifiedB                        |  74.19   |   5.25    | 0.79  |       3544       | [femto](./logs/ablation/convnext_femto_120e_7419.txt) | [replaced](https://github.com/suous/RepNeXt/releases/download/v1.0/convnext_femto_120e_replaced_7419.pth) |
 
 ![top1_acc](./figures/ablation_convnext.png)
 
 ```python
+# ModifiedA
 class Downsample(nn.Module):
     def __init__(self, dim, mlp_ratio):
         super().__init__()
@@ -337,12 +339,11 @@ class Downsample(nn.Module):
         return input + x
 ```
 
-> We made a mistake about the above convnext modification. 
-> We will correct it in the next version.
-> Actually, the code below is our downsample layer design, where the shortcut connection only bypasses the channel mixer. 
+> The code below is our downsample layer design, where the shortcut connection only bypasses the channel mixer. 
 > This design enables the batch normalization layer to be fused into the previous convolution layer.
 
 ```python
+# ModifiedB
 class Downsample(nn.Module):
     def __init__(self, dim, mlp_ratio=2):
         super().__init__()
@@ -367,6 +368,25 @@ class Downsample(nn.Module):
 
 </details>
 
+### Compact Model Experiments
+
+#### Cifar-100
+
+|    Model    | Latency (ms) | Params (M) | GMACs | Top-1 (100e) | Top-1 (200e) | Top-1 (300e) | Top-1 (400e) |                                                                                                                    Log                                                                                                                    |  
+|:-----------:|:------------:|:----------:|:-----:|:------------:|:------------:|:------------:|:------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| StarNet-S1  |     0.7      |    2.9     | 0.44  |    70.37     |    77.26     |    79.26     |    80.61     |     [100e](./logs/compact/cifar/starnet_s1_cifar_100e.txt) / [200e](./logs/compact/cifar/starnet_s1_cifar_200e.txt) / [300e](./logs/compact/cifar/starnet_s1_cifar_300e.txt) / [400e](./logs/compact/cifar/starnet_s1_cifar_400e.txt)     |
+| RepViT-M0.6 |     0.6      |    2.5     | 0.39  |    71.73     |    78.45     |    80.16     |    80.60     |   [100e](./logs/compact/cifar/repvit_m0_6_cifar_100e.txt) / [200e](./logs/compact/cifar/repvit_m0_6_cifar_200e.txt) / [300e](./logs/compact/cifar/repvit_m0_6_cifar_300e.txt) / [400e](./logs/compact/cifar/repvit_m0_6_cifar_400e.txt)   |
+| RepNeXt-M0E |     0.7      |    2.5     | 0.46  |    73.56     |    79.79     |  **81.89**   |  **82.07**   | [100e](./logs/compact/cifar/repnext_m0_e_cifar_100e.txt) / [200e](./logs/compact/cifar/repnext_m0_e_cifar_200e.txt) / [300e](./logs/compact/cifar/repnext_m0_e_cifar_300e.txt) / [400e](./logs/compact/cifar/repnext_m0_e_cifar_400e.txt) |
+| RepNeXt-M0  |     0.6      |    2.3     | 0.39  |  **74.53**   |  **80.14**   |    81.73     |    81.97     |     [100e](./logs/compact/cifar/repnext_m0_cifar_100e.txt) / [200e](./logs/compact/cifar/repnext_m0_cifar_200e.txt) / [300e](./logs/compact/cifar/repnext_m0_cifar_300e.txt) / [400e](./logs/compact/cifar/repnext_m0_cifar_400e.txt)     |
+
+![top1_acc_cifar_100](./figures/compact_models_cifar100.png)
+
+`RepNeXt-M0E` is the equivalent form of `RepNeXt-M0` where the multi-branch design is replaced by the single-branch large-kernel depthwise convolution.
+Our multi-branch reparameter design helps the model converge faster, with a smaller size and lower latency.
+
+### ImageNet-1K
+
+- [ ] TODO
 
 ## Acknowledgement
 
