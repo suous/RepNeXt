@@ -384,7 +384,7 @@ class Downsample(nn.Module):
 `RepNeXt-M0E` is the equivalent form of `RepNeXt-M0` where the multi-branch design is replaced by the single-branch large-kernel depthwise convolution.
 Our multi-branch reparameter design helps the model converge faster, with a smaller size and lower latency.
 
-### ImageNet-1K
+#### ImageNet-1K
 
 - [ ] TODO
 
