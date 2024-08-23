@@ -238,6 +238,12 @@ python -m torch.distributed.launch --nproc_per_node=8 --master_port 12346 --use_
 ```
 Tips: specify your data path and model name! 
 
+Training with the helper script:
+
+```bash
+sh dist_train_cifar.sh
+```
+
 ### Testing 
 For example, to test RepNeXt-M1:
 ```
@@ -374,19 +380,31 @@ class Downsample(nn.Module):
 
 |    Model    | Latency (ms) | Params (M) | GMACs | Top-1 (100e) | Top-1 (200e) | Top-1 (300e) | Top-1 (400e) |                                                                                                                    Log                                                                                                                    |  
 |:-----------:|:------------:|:----------:|:-----:|:------------:|:------------:|:------------:|:------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-| StarNet-S1  |     0.7      |    2.9     | 0.44  |    70.37     |    77.26     |    79.26     |    80.61     |     [100e](./logs/compact/cifar/starnet_s1_cifar_100e.txt) / [200e](./logs/compact/cifar/starnet_s1_cifar_200e.txt) / [300e](./logs/compact/cifar/starnet_s1_cifar_300e.txt) / [400e](./logs/compact/cifar/starnet_s1_cifar_400e.txt)     |
-| RepViT-M0.6 |     0.6      |    2.5     | 0.39  |    71.73     |    78.45     |    80.16     |    80.60     |   [100e](./logs/compact/cifar/repvit_m0_6_cifar_100e.txt) / [200e](./logs/compact/cifar/repvit_m0_6_cifar_200e.txt) / [300e](./logs/compact/cifar/repvit_m0_6_cifar_300e.txt) / [400e](./logs/compact/cifar/repvit_m0_6_cifar_400e.txt)   |
-| RepNeXt-M0E |     0.7      |    2.5     | 0.46  |    73.56     |    79.79     |  **81.89**   |  **82.07**   | [100e](./logs/compact/cifar/repnext_m0_e_cifar_100e.txt) / [200e](./logs/compact/cifar/repnext_m0_e_cifar_200e.txt) / [300e](./logs/compact/cifar/repnext_m0_e_cifar_300e.txt) / [400e](./logs/compact/cifar/repnext_m0_e_cifar_400e.txt) |
-| RepNeXt-M0  |     0.6      |    2.3     | 0.39  |  **74.53**   |  **80.14**   |    81.73     |    81.97     |     [100e](./logs/compact/cifar/repnext_m0_cifar_100e.txt) / [200e](./logs/compact/cifar/repnext_m0_cifar_200e.txt) / [300e](./logs/compact/cifar/repnext_m0_cifar_300e.txt) / [400e](./logs/compact/cifar/repnext_m0_cifar_400e.txt)     |
+| StarNet-S1  |     0.7      |    2.8     | 0.44  |    70.37     |    77.26     |    79.26     |    80.61     |     [100e](./logs/compact/cifar/starnet_s1_cifar_100e.txt) / [200e](./logs/compact/cifar/starnet_s1_cifar_200e.txt) / [300e](./logs/compact/cifar/starnet_s1_cifar_300e.txt) / [400e](./logs/compact/cifar/starnet_s1_cifar_400e.txt)     |
+| RepViT-M0.6 |     0.6      |    2.2     | 0.39  |    71.73     |    78.45     |    80.16     |    80.60     |   [100e](./logs/compact/cifar/repvit_m0_6_cifar_100e.txt) / [200e](./logs/compact/cifar/repvit_m0_6_cifar_200e.txt) / [300e](./logs/compact/cifar/repvit_m0_6_cifar_300e.txt) / [400e](./logs/compact/cifar/repvit_m0_6_cifar_400e.txt)   |
+| RepNeXt-M0E |     0.7      |    2.3     | 0.46  |    73.56     |    79.79     |  **81.89**   |  **82.07**   | [100e](./logs/compact/cifar/repnext_m0_e_cifar_100e.txt) / [200e](./logs/compact/cifar/repnext_m0_e_cifar_200e.txt) / [300e](./logs/compact/cifar/repnext_m0_e_cifar_300e.txt) / [400e](./logs/compact/cifar/repnext_m0_e_cifar_400e.txt) |
+| RepNeXt-M0  |     0.6      |    2.0     | 0.39  |  **74.53**   |  **80.14**   |    81.73     |    81.97     |     [100e](./logs/compact/cifar/repnext_m0_cifar_100e.txt) / [200e](./logs/compact/cifar/repnext_m0_cifar_200e.txt) / [300e](./logs/compact/cifar/repnext_m0_cifar_300e.txt) / [400e](./logs/compact/cifar/repnext_m0_cifar_400e.txt)     |
 
-![top1_acc_cifar_100](./figures/compact_models_cifar100.png)
+![top1_acc_cifar_100](./figures/compact_models_cifar_100.png)
 
 `RepNeXt-M0E` is the equivalent form of `RepNeXt-M0` where the multi-branch design is replaced by the single-branch large-kernel depthwise convolution.
 Our multi-branch reparameter design helps the model converge faster, with a smaller size and lower latency.
 
 #### ImageNet-1K
 
-- [ ] TODO
+|    Model    | Latency (ms) | Params (M) | GMACs | Top-1 (100e) | Top-1 (200e) | Top-1 (300e) | Top-1 (400e) |                                                                                                                        Log                                                                                                                        |  
+|:-----------:|:------------:|:----------:|:-----:|:------------:|:------------:|:------------:|:------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| StarNet-S1  |     0.7      |    2.9     | 0.44  |    67.95     |    70.79     |    71.85     |    72.21     |     [100e](./logs/compact/imgnet/starnet_s1_imgnet_100e.txt) / [200e](./logs/compact/imgnet/starnet_s1_imgnet_200e.txt) / [300e](./logs/compact/imgnet/starnet_s1_imgnet_300e.txt) / [400e](./logs/compact/imgnet/starnet_s1_imgnet_400e.txt)     |
+| RepViT-M0.6 |     0.6      |    2.5     | 0.39  |    69.29     |    71.63     |    72.34     |  **72.87**   |   [100e](./logs/compact/imgnet/repvit_m0_6_imgnet_100e.txt) / [200e](./logs/compact/imgnet/repvit_m0_6_imgnet_200e.txt) / [300e](./logs/compact/imgnet/repvit_m0_6_imgnet_300e.txt) / [400e](./logs/compact/imgnet/repvit_m0_6_imgnet_400e.txt)   |
+| RepNeXt-M0E |     0.7      |    2.5     | 0.46  |    69.69     |    71.57     |    72.18     |    72.53     | [100e](./logs/compact/imgnet/repnext_m0_e_imgnet_100e.txt) / [200e](./logs/compact/imgnet/repnext_m0_e_imgnet_200e.txt) / [300e](./logs/compact/imgnet/repnext_m0_e_imgnet_300e.txt) / [400e](./logs/compact/imgnet/repnext_m0_e_imgnet_400e.txt) |
+| RepNeXt-M0  |     0.6      |    2.3     | 0.39  |  **70.14**   |  **71.93**   |  **72.56**   |    72.78     |     [100e](./logs/compact/imgnet/repnext_m0_imgnet_100e.txt) / [200e](./logs/compact/imgnet/repnext_m0_imgnet_200e.txt) / [300e](./logs/compact/imgnet/repnext_m0_imgnet_300e.txt) / [400e](./logs/compact/imgnet/repnext_m0_imgnet_400e.txt)     |
+
+![top1_acc_cifar_100](./figures/compact_models_imagenet_1k.png)
+
+`RepNeXt-M0E` is the equivalent form of `RepNeXt-M0` where the multi-branch design is replaced by the single-branch large-kernel depthwise convolution.
+Our multi-branch reparameter design helps the model converge faster, with a smaller size and lower latency.
+
+- [ ] TODO: Add [MogaNet-XT (2.97M)](https://github.com/Westlake-AI/MogaNet) results.
 
 ## Acknowledgement
 
