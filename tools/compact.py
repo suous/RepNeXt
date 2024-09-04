@@ -16,7 +16,6 @@ experiments = [
             Model(name="RepNeXt-M0", params=2.039, accs=[74.53, 80.14, 81.73, 81.97], color="#0C5DA5", marker="o", line="-"),
             Model(name="RepNeXt-M0E", params=2.252, accs=[73.56, 79.79, 81.89, 82.07], color="#474747", marker="o", line="--"),
             Model(name="RepViT-M0.6", params=2.179, accs=[71.73, 78.45, 80.16, 80.60], color="#00B945", marker="o", line="-"),
-            Model(name="StarNet-S1", params=2.772, accs=[70.37, 77.26, 79.26, 80.61], color="#FF2C00", marker="o", line="-"),
         ],
         offset=0.3
     ),
@@ -26,7 +25,6 @@ experiments = [
             Model(name="RepNeXt-M0", params=2.328, accs=[70.14, 71.93, 72.56, 72.78], color="#0C5DA5", marker="o", line="-"),
             Model(name="RepNeXt-M0E", params=2.541, accs=[69.69, 71.57, 72.18, 72.53], color="#474747", marker="o", line="--"),
             Model(name="RepViT-M0.6", params=2.468, accs=[69.29, 71.63, 72.34, 72.87], color="#00B945", marker="o", line="-"),
-            Model(name="StarNet-S1", params=2.945, accs=[67.95, 70.79, 71.85, 72.21], color="#FF2C00", marker="o", line="-"),
         ],
         offset=0.1
 
@@ -56,6 +54,9 @@ def plot_model_performance(models, dataset="CIFAR-100", offset=0.3):
     ax.set_ylabel(f"{dataset} Top-1 Accuracy (%)", fontsize=16)
     ax.xaxis.set_major_locator(MultipleLocator(100))
     ax.xaxis.set_minor_locator(MultipleLocator(50))
+    is_cifar = dataset == "CIFAR-100"
+    ax.yaxis.set_major_locator(MultipleLocator(1+int(is_cifar)))
+    ax.yaxis.set_minor_locator(MultipleLocator(1+int(is_cifar)))
     ax.grid(alpha=0.8, linestyle="-", linewidth=0.5)
     ax.grid(which='minor', linestyle='-', linewidth='0.5', alpha=0.8)
     ax.set_xlabel('Epochs', fontsize=16)
@@ -85,6 +86,9 @@ def plot_experiments(experiments):
         ax.set_ylabel(f"{experiment.dataset} Top-1 Accuracy (%)", fontsize=14, labelpad=2)
         ax.xaxis.set_major_locator(MultipleLocator(100))
         ax.xaxis.set_minor_locator(MultipleLocator(50))
+        is_cifar = experiment.dataset == "CIFAR-100"
+        ax.yaxis.set_major_locator(MultipleLocator(1+int(is_cifar)))
+        ax.yaxis.set_minor_locator(MultipleLocator(1+int(is_cifar)))
         ax.grid(alpha=0.8, linestyle="-", linewidth=0.5)
         ax.grid(which='minor', linestyle='-', linewidth='0.5', alpha=0.8)
     ax.set_xlabel('Epochs', fontsize=12, labelpad=-4)
