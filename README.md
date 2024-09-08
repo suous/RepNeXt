@@ -124,19 +124,37 @@ In summary, by focusing solely on the simplicity of the model’s overall archit
 
 <br/>
 
+**UPDATES** 🔥
+- **2024/09/08**: Added RepNext-M0 ImageNet-1K result using StarNet's training recipe. Achieving 73.8% top-1 accuracy without distillation.
+- **2024/08/26**: RepNext-M0 (distilled) has been released, achieving 74.2% top-1 accuracy within 0.6ms on an iPhone 12.
+- **2024/08/23**: Finished compact model (M0) ImageNet-1K experiments.
+- **2024/07/23**: Updated readme about further simplified model structure.
+- **2024/06/25**: Uploaded checkpoints and training logs of RepNext-M1 - M5.
+
 ## Classification on ImageNet-1K
 
-### Models
+### Models under the RepVit training strategy
 
-| Model | Top-1 (300)| #params | MACs | Latency | Ckpt | Core ML |                    Log                     |
-|:------|:----:|:---:|:--:|:-------:|:--:|:--:|:------------------------------------------:|
-| M0  |   74.2   |     2.3M    |   0.4G   | 0.59ms  | [fused 300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m0_distill_300e_fused.pt) / [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m0_distill_300e.pth) |   [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m0_distill_300e_224.mlmodel)   | [distill 300e](./logs/repnext_m0_distill_300e.txt) / [300e](./logs/repnext_m0_without_distill_300e.txt)|
-| M1  |   78.8   |     4.8M    |   0.8G   | 0.86ms  | [fused 300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m1_distill_300e_fused.pt) / [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m1_distill_300e.pth) |   [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m1_distill_300e_224.mlmodel)   | [distill 300e](./logs/repnext_m1_distill_300e.txt) / [300e](./logs/repnext_m1_without_distill_300e.txt)|
-| M2  |   80.1   |     6.5M    |   1.1G   | 1.00ms  | [fused 300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m2_distill_300e_fused.pt) / [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m2_distill_300e.pth) |   [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m2_distill_300e_224.mlmodel)   | [distill 300e](./logs/repnext_m2_distill_300e.txt) / [300e](./logs/repnext_m2_without_distill_300e.txt)|
-| M3  |   80.7   |     7.8M    |   1.3G   | 1.11ms  | [fused 300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m3_distill_300e_fused.pt) / [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m3_distill_300e.pth) |   [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m3_distill_300e_224.mlmodel)   | [distill 300e](./logs/repnext_m3_distill_300e.txt) / [300e](./logs/repnext_m3_without_distill_300e.txt)|
-| M4  |   82.3   |     13.3M   |   2.3G   | 1.48ms  | [fused 300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m4_distill_300e_fused.pt) / [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m4_distill_300e.pth) |   [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m4_distill_300e_224.mlmodel)   | [distill 300e](./logs/repnext_m4_distill_300e.txt) / [300e](./logs/repnext_m4_without_distill_300e.txt)|
-| M5  |   83.3   |     21.7M   |   4.5G   | 2.20ms  | [fused 300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m5_distill_300e_fused.pt) / [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m5_distill_300e.pth) |   [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m5_distill_300e_224.mlmodel)   | [distill 300e](./logs/repnext_m5_distill_300e.txt) / [300e](./logs/repnext_m5_without_distill_300e.txt)|
+We report the top-1 accuracy on ImageNet-1K with and without distillation using the same training strategy as [RepViT](https://github.com/THU-MIG/RepViT).
 
+| Model | Top-1(distill) / Top-1 | #params | MACs | Latency | Ckpt | Core ML |                    Log                     |
+|:------|:----------------------:|:---:|:--:|:-------:|:--:|:--:|:------------------------------------------:|
+| M0  |      74.2 \| 72.6      |     2.3M    |   0.4G   | 0.59ms  | [fused 300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m0_distill_300e_fused.pt) / [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m0_distill_300e.pth) |   [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m0_distill_300e_224.mlmodel)   | [distill 300e](./logs/repnext_m0_distill_300e.txt) / [300e](./logs/repnext_m0_without_distill_300e.txt)|
+| M1  |      78.8 \| 77.5      |  4.8M |   0.8G   | 0.86ms  | [fused 300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m1_distill_300e_fused.pt) / [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m1_distill_300e.pth) |   [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m1_distill_300e_224.mlmodel)   | [distill 300e](./logs/repnext_m1_distill_300e.txt) / [300e](./logs/repnext_m1_without_distill_300e.txt)|
+| M2  |      80.1 \| 78.9      |  6.5M |   1.1G   | 1.00ms  | [fused 300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m2_distill_300e_fused.pt) / [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m2_distill_300e.pth) |   [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m2_distill_300e_224.mlmodel)   | [distill 300e](./logs/repnext_m2_distill_300e.txt) / [300e](./logs/repnext_m2_without_distill_300e.txt)|
+| M3  |      80.7 \| 79.4      |  7.8M |   1.3G   | 1.11ms  | [fused 300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m3_distill_300e_fused.pt) / [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m3_distill_300e.pth) |   [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m3_distill_300e_224.mlmodel)   | [distill 300e](./logs/repnext_m3_distill_300e.txt) / [300e](./logs/repnext_m3_without_distill_300e.txt)|
+| M4  |      82.3 \| 81.2      |  13.3M |   2.3G   | 1.48ms  | [fused 300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m4_distill_300e_fused.pt) / [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m4_distill_300e.pth) |   [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m4_distill_300e_224.mlmodel)   | [distill 300e](./logs/repnext_m4_distill_300e.txt) / [300e](./logs/repnext_m4_without_distill_300e.txt)|
+| M5  |      83.3 \| 82.4      |  21.7M |   4.5G   | 2.20ms  | [fused 300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m5_distill_300e_fused.pt) / [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m5_distill_300e.pth) |   [300e](https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m5_distill_300e_224.mlmodel)   | [distill 300e](./logs/repnext_m5_distill_300e.txt) / [300e](./logs/repnext_m5_without_distill_300e.txt)|
+
+### Models under the StarNet training strategy
+
+We report the top-1 and top-5 accuracy on ImageNet-1K without distillation using the same training strategy as [StarNet](https://github.com/ma-xu/Rewrite-the-Stars).
+
+> checkpoints and logs will be released soon.
+
+| Model | Resolution | Params (M) | MACs | Latency | Top-1 / top-5 (%) |                              Script                              |                             Download                              |
+|:------|:----------:|:----------:|:----:|:-------:|:-----------------:|:----------------------------------------------------------------:|:-----------------------------------------------------------------:|
+| M0    |  224x224   |    2.3     | 0.4G | 0.59ms  |   73.8 \| 91.6    | [args](./logs/strategy/repnext_m0_sz224_4xbs512_ep300_args.yaml) | [log](./logs/strategy/repnext_m0_sz224_4xbs512_ep300_summary.csv) |
 
 Tips: Convert a training-time RepNeXt into the inference-time structure
 ```
@@ -405,7 +423,7 @@ Our multi-branch reparameter design helps the model converge faster, with a smal
 
 ## Acknowledgement
 
-Classification (ImageNet) code base is partly built with [LeViT](https://github.com/facebookresearch/LeViT), [PoolFormer](https://github.com/sail-sg/poolformer), [EfficientFormer](https://github.com/snap-research/EfficientFormer),  and [RepViT](https://github.com/THU-MIG/RepViT)
+Classification (ImageNet) code base is partly built with [LeViT](https://github.com/facebookresearch/LeViT), [PoolFormer](https://github.com/sail-sg/poolformer), [EfficientFormer](https://github.com/snap-research/EfficientFormer),  [RepViT](https://github.com/THU-MIG/RepViT), and [MogaNet](https://github.com/Westlake-AI/MogaNet).
 
 The detection and segmentation pipeline is from [MMCV](https://github.com/open-mmlab/mmcv) ([MMDetection](https://github.com/open-mmlab/mmdetection) and [MMSegmentation](https://github.com/open-mmlab/mmsegmentation)). 
 
