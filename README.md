@@ -155,6 +155,7 @@ We report the top-1 and top-5 accuracy on ImageNet-1K without distillation using
 | Model | Resolution | Params (M) | MACs | Latency | Top-1 / top-5 (%) |                              Script                              |                             Download                              |
 |:------|:----------:|:----------:|:----:|:-------:|:-----------------:|:----------------------------------------------------------------:|:-----------------------------------------------------------------:|
 | M0    |  224x224   |    2.3     | 0.4G | 0.59ms  |   73.8 \| 91.6    | [args](./logs/strategy/repnext_m0_sz224_4xbs512_ep300_args.yaml) | [log](./logs/strategy/repnext_m0_sz224_4xbs512_ep300_summary.csv) |
+| M1    |  224x224   |    4.8     | 0.8G | 0.86ms  |   77.9 \| 94.0    | [args](./logs/strategy/repnext_m1_sz224_4xbs512_ep300_args.yaml) | [log](./logs/strategy/repnext_m1_sz224_4xbs512_ep300_summary.csv) |
 
 Tips: Convert a training-time RepNeXt into the inference-time structure
 ```
