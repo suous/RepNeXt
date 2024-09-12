@@ -152,11 +152,22 @@ We report the top-1 and top-5 accuracy on ImageNet-1K without distillation using
 
 > checkpoints and logs will be released soon.
 
-| Model | Resolution | Params (M) | MACs | Latency | Top-1 / top-5 (%) |                              Script                              |                             Download                              |
-|:------|:----------:|:----------:|:----:|:-------:|:-----------------:|:----------------------------------------------------------------:|:-----------------------------------------------------------------:|
-| M0    |  224x224   |    2.3     | 0.4G | 0.59ms  |   73.8 \| 91.6    | [args](./logs/strategy/repnext_m0_sz224_4xbs512_ep300_args.yaml) | [log](./logs/strategy/repnext_m0_sz224_4xbs512_ep300_summary.csv) |
-| M1    |  224x224   |    4.8     | 0.8G | 0.86ms  |   77.9 \| 94.0    | [args](./logs/strategy/repnext_m1_sz224_4xbs512_ep300_args.yaml) | [log](./logs/strategy/repnext_m1_sz224_4xbs512_ep300_summary.csv) |
-| M2    |  224x224   |    6.5     | 1.1G | 1.00ms  |   78.8 \| 94.5    | [args](./logs/strategy/repnext_m2_sz224_4xbs512_ep300_args.yaml) | [log](./logs/strategy/repnext_m2_sz224_4xbs512_ep300_summary.csv) |
+| Model | Resolution | Params (M) | MACs | Latency | Top-1 / top-5 (%) |                              Script                              |                                                                                   Download                                                                                    |
+|:------|:----------:|:----------:|:----:|:-------:|:-----------------:|:----------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| M0    |  224x224   |    2.3     | 0.4G | 0.59ms  |   73.8 \| 91.6    | [args](./logs/strategy/repnext_m0_sz224_4xbs512_ep300_args.yaml) | [log](./logs/strategy/repnext_m0_sz224_4xbs512_ep300_summary.csv) \| [model]( https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m0_sz224_4xbs512_ep300.pth.tar) |
+| M1    |  224x224   |    4.8     | 0.8G | 0.86ms  |   77.9 \| 94.0    | [args](./logs/strategy/repnext_m1_sz224_4xbs512_ep300_args.yaml) | [log](./logs/strategy/repnext_m1_sz224_4xbs512_ep300_summary.csv) \| [model]( https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m1_sz224_4xbs512_ep300.pth.tar) |
+| M2    |  224x224   |    6.5     | 1.1G | 1.00ms  |   78.8 \| 94.5    | [args](./logs/strategy/repnext_m2_sz224_4xbs512_ep300_args.yaml) | [log](./logs/strategy/repnext_m2_sz224_4xbs512_ep300_summary.csv) \| [model]( https://github.com/suous/RepNeXt/releases/download/v1.0/repnext_m2_sz224_4xbs512_ep300.pth.tar) |
+
+Model evaluation:
+
+```bash
+python moganet_valid.py \
+--model repnext_m0 \
+--img_size 224 \
+--crop_pct 0.9 \
+--data_dir data/imagenet \                  
+--checkpoint repnext_m0_sz224_4xbs512_ep300.pth.tar
+```
 
 Tips: Convert a training-time RepNeXt into the inference-time structure
 ```
