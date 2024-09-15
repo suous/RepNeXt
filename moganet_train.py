@@ -313,6 +313,8 @@ parser.add_argument('--torchscript', dest='torchscript', action='store_true',
                     help='convert model torchscript for inference')
 parser.add_argument('--log_wandb', action='store_true', default=False,
                     help='log training and validation metrics to wandb')
+parser.add_argument('--dist_url', default='env://',
+                    help='url used to set up distributed training')
 
 
 def _parse_args():

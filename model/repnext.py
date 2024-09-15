@@ -289,8 +289,9 @@ class RepNext(nn.Module):
         global_pool="avg",
         num_classes=1000,
         act_layer=nn.GELU,
-        distillation=True,
+        distillation=False,
         drop_rate=0.0,
+        **kwargs,
     ):
         super().__init__()
         self.global_pool = global_pool
