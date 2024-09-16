@@ -45,6 +45,7 @@ from timm.utils import ApexScaler, NativeScaler
 from fvcore.nn import FlopCountAnalysis
 from fvcore.nn import flop_count_table
 
+from losses import DistillationLoss
 import model
 import utils
 
@@ -313,6 +314,18 @@ parser.add_argument('--torchscript', dest='torchscript', action='store_true',
                     help='convert model torchscript for inference')
 parser.add_argument('--log_wandb', action='store_true', default=False,
                     help='log training and validation metrics to wandb')
+
+# Distillation parameters
+parser.add_argument('--teacher-model', default='regnety_160', type=str, metavar='MODEL',
+                    help='Name of teacher model to train (default: "regnety_160"')
+parser.add_argument('--teacher-path', type=str,
+                    default='https://dl.fbaipublicfiles.com/deit/regnety_160-a5fe301d.pth')
+parser.add_argument('--distillation-type', default='hard',
+                    choices=['none', 'soft', 'hard'], type=str, help="")
+parser.add_argument('--distillation-alpha',
+                    default=0.5, type=float, help="")
+parser.add_argument('--distillation-tau', default=1.0, type=float, help="")
+
 parser.add_argument('--dist_url', default='env://',
                     help='url used to set up distributed training')
 
@@ -384,6 +397,7 @@ def main():
 
     model = create_model(
         args.model,
+        distillation=(args.distillation_type != 'none'),
         pretrained=args.pretrained,
         num_classes=args.num_classes,
         drop_rate=args.drop,
@@ -615,6 +629,32 @@ def main():
             train_loss_fn = LabelSmoothingCrossEntropy(smoothing=args.smoothing)
     else:
         train_loss_fn = nn.CrossEntropyLoss()
+
+    if args.distillation_type != 'none':
+        assert args.teacher_path, 'need to specify teacher-path when using distillation'
+        print(f"Creating teacher model: {args.teacher_model}")
+        teacher_model = create_model(
+            args.teacher_model,
+            pretrained=False,
+            num_classes=args.num_classes,
+            global_pool='avg',
+        )
+        if args.teacher_path.startswith('https'):
+            checkpoint = torch.hub.load_state_dict_from_url(
+                args.teacher_path, map_location='cpu', check_hash=True)
+        else:
+            checkpoint = torch.load(args.teacher_path, map_location='cpu')
+        teacher_model.load_state_dict(checkpoint['model'])
+        teacher_model.cuda()
+        teacher_model.eval()
+
+        # wrap the criterion in our custom DistillationLoss, which
+        # just dispatches to the original criterion if args.distillation_type is
+        # 'none'
+        train_loss_fn = DistillationLoss(
+            train_loss_fn, teacher_model, args.distillation_type, args.distillation_alpha, args.distillation_tau
+        )
+
     train_loss_fn = train_loss_fn.cuda()
     validate_loss_fn = nn.CrossEntropyLoss().cuda()
 
@@ -734,7 +774,7 @@ def train_one_epoch(epoch: int,
 
         with amp_autocast():
             output = model(input)
-            loss = loss_fn(output, target)
+            loss = loss_fn(input, output, target) if args.distillation_type != 'none' else loss_fn(output, target)
             if torch.any(torch.isnan(loss)) or torch.any(torch.isinf(loss)):
                 raise ValueError("Inf or nan loss value: use fp32 training instead!")
 
